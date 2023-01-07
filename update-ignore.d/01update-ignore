@@ -184,14 +184,7 @@ if [ -e "$file" ]; then
 		fi
 	fi
 	realfile="$file"
-	if command -v mktemp >/dev/null; then
-		tempfile="mktemp"
-	elif command -v tempfile >/dev/null; then
-		tempfile="tempfile"
-	else
-		echo "etckeeper warning: can't find tempfile or mktemp" >&2
-	fi
-	file=$($tempfile)
+	file=$(mktemp -t etckeeper-$VCS.XXXXXXXXXX)
 
 	# preserve permissions and ownership
 	cp -fp "$realfile" "$file"
